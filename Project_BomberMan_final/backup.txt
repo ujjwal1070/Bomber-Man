@@ -1,0 +1,183 @@
+oid Game::spriteManager(){
+    window.setFramerateLimit(10);
+
+    bomberSpriteBound=bomberSprite.getGlobalBounds();
+    bomberSpritePosition=bomberSprite.getPosition();
+
+    bombSpritePosition=bombSprite.getPosition();
+    int rightMove=1; // for collision
+    int leftMove=1;
+    int upMove=1;
+    int downMove=1;
+
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+            {
+                rightActive=true;
+                    upActive=false;
+                    leftActive=false;
+                    downActive=false;
+
+                    bomberSprite.setTextureRect(sf::IntRect(spriteMovementCounter*50,150,50,50));
+                for(int i=0; i< 40; i++)
+                {
+                    concreteWallSpriteBound[i]=concreteWallSprite[i].getGlobalBounds();
+                    breakableWallSpriteBound[i]=breakableWallSprite[i].getGlobalBounds();
+                    if(bomberSpritePosition.x == concreteWallSpriteBound[i].left-50 &&bomberSpritePosition.y<=concreteWallSpriteBound[i].top
+                        +48 &&bomberSpritePosition.y>= concreteWallSpriteBound[i].top-48)
+                        {
+                            bomberSprite.move(0,0);
+                            rightMove =0;
+                            rightBombAllowance=false;
+                        }
+
+                    if(bomberSpritePosition.x == breakableWallSpriteBound[i].left-50 &&bomberSpritePosition.y<=breakableWallSpriteBound[i].top
+                        +48 &&bomberSpritePosition.y>= breakableWallSpriteBound[i].top-48)
+                        {
+                            bomberSprite.move(0,0);
+                            rightMove =0;
+                            rightBombAllowance=false;
+                        }
+
+                }
+                if(bombActive && bomberSpritePosition.x==bombSpritePosition.x -50 && bomberSpritePosition.y==bombSpritePosition.y)
+                {
+                    std::cout<<"hehehe";
+                    rightMove=0;
+                }
+
+                if (rightMove!=0)
+                {
+                    if(bomberSpritePosition.x<750 )
+                    {
+                        bomberSprite.move(5,0);
+
+                    }
+                }
+
+            }
+            else
+
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+            {
+                rightActive=false;
+                    upActive=false;
+                    leftActive=true;
+                    downActive=false;
+                bomberSprite.setTextureRect(sf::IntRect(spriteMovementCounter*50,100,50,50));
+                for(int i=0; i< 40; i++)
+                {
+                    concreteWallSpriteBound[i]=concreteWallSprite[i].getGlobalBounds();
+                    breakableWallSpriteBound[i]=breakableWallSprite[i].getGlobalBounds();
+                    if(bomberSpritePosition.x -50 == concreteWallSpriteBound[i].left
+                            &&bomberSpritePosition.y <= concreteWallSpriteBound[i].top+48 && bomberSpritePosition.y>= concreteWallSpriteBound[i].top-48)
+                    {
+                        bomberSprite.move(0,0);
+                        leftMove =0;
+                        leftBombAllowance=false;
+                    }
+                     if(bomberSpritePosition.x -50 ==breakableWallSpriteBound[i].left
+                            &&bomberSpritePosition.y <= breakableWallSpriteBound[i].top+48 && bomberSpritePosition.y>= breakableWallSpriteBound[i].top-48)
+                    {
+                        bomberSprite.move(0,0);
+                        leftMove =0;
+                        leftBombAllowance=false;
+                    }
+                }
+
+                if(leftMove!=0)
+                {
+                    if(bomberSpritePosition.x>50)
+                    {
+                        bomberSprite.move(-5,0);
+
+                    }
+                }
+            }
+            else
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+            {
+
+
+                 rightActive=false;
+                    upActive=true;
+                    leftActive=false;
+                    downActive=false;
+                bomberSprite.setTextureRect(sf::IntRect(spriteMovementCounter*50,50,50,50));
+                for(int i=0; i< 40; i++)
+                {
+                    concreteWallSpriteBound[i]=concreteWallSprite[i].getGlobalBounds();
+                    breakableWallSpriteBound[i]=breakableWallSprite[i].getGlobalBounds();
+                    if(bomberSpritePosition.y == concreteWallSpriteBound[i].top+50
+                        &&bomberSpritePosition.x <= concreteWallSpriteBound[i].left + 48 && bomberSpritePosition.x >= concreteWallSpriteBound[i].left -48)
+                    {
+                        bomberSprite.move(0,0);
+                        upMove=0;
+                        upBombAllowance=false;
+
+                    }
+                     if(bomberSpritePosition.y == breakableWallSpriteBound[i].top+50
+                        &&bomberSpritePosition.x <= breakableWallSpriteBound[i].left + 48 && bomberSpritePosition.x >= breakableWallSpriteBound[i].left -48)
+                    {
+                        bomberSprite.move(0,0);
+                        upMove=0;
+                        upBombAllowance=false;
+                    }
+                }
+                if(upMove!=0)
+                {
+                    if(bomberSpritePosition.y>=52 )
+                    {
+                        bomberSprite.move(0,-5);
+
+                    }
+                }
+            }
+            else
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+            {
+                rightActive=false;
+                        upActive=false;
+                        leftActive=false;
+                        downActive=true;
+
+                bomberSprite.setTextureRect(sf::IntRect(spriteMovementCounter*50,0,50,50));
+                for(int i=0; i< 40; i++)
+                {
+                    concreteWallSpriteBound[i]=concreteWallSprite[i].getGlobalBounds();
+                    breakableWallSpriteBound[i]=breakableWallSprite[i].getGlobalBounds();
+                    if(bomberSpritePosition.y == concreteWallSpriteBound[i].top-50
+                        && bomberSpritePosition.x <= concreteWallSpriteBound[i].left+48 && bomberSpritePosition.x>= concreteWallSpriteBound[i].left -48)
+                    {
+                        bomberSprite.move(0,0);
+                        downMove=0;
+                        downBombAllowance=false;
+                    }
+                     if(bomberSpritePosition.y == breakableWallSpriteBound[i].top-50
+                        && bomberSpritePosition.x <= breakableWallSpriteBound[i].left+48 && bomberSpritePosition.x>= breakableWallSpriteBound[i].left -48)
+                    {
+                        bomberSprite.move(0,0);
+                        downMove=0;
+                        downBombAllowance=false;
+                    }
+                }
+
+                if(downMove!=0)
+                {
+                    if(bomberSpritePosition.y<=548)
+                    {
+                        bomberSprite.move(0,5);
+
+                    }
+                }
+            }
+    spriteMovementCounter++;
+    if(spriteMovementCounter==3)
+    {
+        spriteMovementCounter=0;
+    }
+   /* if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+    {
+        sf::Clock clock;
+        bombTime= sf::Clock::getElapsedTime()
+        std::cout<<bombTime;
+    }*/
